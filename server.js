@@ -1,6 +1,7 @@
 var express = require('express');
 var qs = require('querystring');
 var accessToken = require('./accessToken.js')
+var _ = require('underscore')
 var app = express.createServer(express.logger());
 
 app.post('/v1/xtrac/oauth2/token', function(request, response) {
@@ -14,7 +15,8 @@ app.post('/v1/xtrac/oauth2/token', function(request, response) {
       var post = qs.parse(data);
       console.log(post);
       var atoken = accessToken.getAccessToken(post.username, post.password);
-      response.status(atoken.status).send(atoken.response);
+      if(_.has(atoken, "error")) response.status(401)
+      response.send(atoken)
     });
 
 });

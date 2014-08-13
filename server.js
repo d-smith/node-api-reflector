@@ -1,7 +1,6 @@
 var express = require('express');
-var uuid = require('node-uuid');
 var qs = require('querystring');
-
+var accessToken = require('./accessToken.js')
 var app = express.createServer(express.logger());
 
 app.post('/v1/xtrac/oauth2/token', function(request, response) {
@@ -14,12 +13,8 @@ app.post('/v1/xtrac/oauth2/token', function(request, response) {
     request.on('end', function() {
       var post = qs.parse(data);
       console.log(post);
-
-      if(post.username === "notauser") {
-        response.status(401).send({"error":"invalid username or password"})
-      } else {
-          response.send({ "access_token" : uuid.v1() });
-      }
+      var atoken = accessToken.getAccessToken(post.username, post.password);
+      response.status(atoken.status).send(atoken.response);
     });
 
 });

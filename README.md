@@ -17,7 +17,7 @@ configure npm proxy settings if behind an HTTP proxy.
 
 Once the dependencies are installed, run the server via `node server.js`
 
-
+There are some unit tests in the tests folder - to run these install jasmine-node (`npm install jasmine-node -g`), the execute the tests via `jasmine-node tests`
 ## Access Tokens
 
 [Access Tokens](http://docs.xtracmobileappapi.apiary.io/#accesstokens) can be created or revoked.

@@ -16,6 +16,12 @@ module.exports = function(cacheSvc) {
       }
 
       response.send(settings);
+    },
+
+    updateNotificationSettings: function(request, response) {
+      var body = request.body;
+      cacheSvc.store(body.uuid, body.notificationSettings);
+      response.send("");
     }
   };
 }

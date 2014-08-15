@@ -11,8 +11,9 @@ module.exports = function(app, services) {
   var serviceNotificationSettingsHandler = notificationSettingsHandler(
     services["cacheSvc"]
   );
-  
+
   app.post('/v1/xtrac/oauth2/token', serviceAccessTokenHandlers.createAccessToken);
   app.post('/v1/xtrac/oauth2/revoke', serviceAccessTokenHandlers.revokeAccessToken);
   app.post('/v1/xtrac/notifications', serviceNotificationSettingsHandler.storeNotificationSettings);
+  app.put('/v1/xtrac/notifications', serviceNotificationSettingsHandler.updateNotificationSettings);
 }

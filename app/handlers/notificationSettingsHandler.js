@@ -9,7 +9,8 @@ module.exports = function(cacheSvc) {
       var settings = cacheSvc.read(body.uuid);
       if(settings == undefined) {
         console.log("cacheMiss")
-        settings =  {allItems: true, highPriority: false, workAccess: false};
+        settings =  {allItems: true, highPriority: true, mediumPriority: true,
+                      lowPriority: true, workAccess: false};
         cacheSvc.store(body.uuid, settings);
       } else {
         console.log("cache hit");

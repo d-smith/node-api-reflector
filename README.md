@@ -66,3 +66,8 @@ Example - Invalid User Name
     Connection: keep-alive
 
     {"error":"Invalid username or password"}
+
+## Notification Settings
+
+The reflector provides in-memory storage for the settings, so default values are
+written into memory on POST, and updated on PUT.

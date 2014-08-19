@@ -6,18 +6,11 @@ var accessToken = require('../services/accessToken.js')
 module.exports = function(accessTokenSvc) {
   return {
     createAccessToken: function(request, response) {
-      var data = '';
-      request.on('data', function(chunk) {
-        data += chunk;
-      });
+      var body = request.body;
 
-      request.on('end', function() {
-        var post = qs.parse(data);
-        console.log(post);
-        var atoken = accessToken.getAccessToken(post.username, post.password);
-        if(_.has(atoken, "error")) response.status(401)
-        response.send(atoken)
-      });
+      var atoken = accessToken.getAccessToken(body.username, body.password);
+      if(_.has(atoken, "error")) response.status(401)
+      response.send(atoken)
     },
 
     revokeAccessToken : function(request, response) {

@@ -7,6 +7,7 @@ app.use(express.bodyParser());
 var services = {};
 services["accessTokenService"] = require('./app/services/accessToken');
 services["cacheSvc"] = require('./app/services/cache');
+services["searchSvc"] = require('./app/services/search');
 
 //load routes
 require('./app/routes')(app,services);

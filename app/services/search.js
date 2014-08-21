@@ -14,12 +14,36 @@ module.exports = new function() {
   {"workItemNo":"W000010-08AUG14", "memo":"Ready for approval"}
   ];
 
+  var makeMemoField = function(memo) {
+    var field = {};
+    field.field = "Memo";
+    field.value = memo;
+    return field;
+  }
+
+  var addMoreFakeFields = function(fields) {
+    fields.push({"field":"queue", "value":"HIREQ"});
+    fields.push({"field":"QCTD","value":"2014-07-23T10:05:34.010Z"});
+    fields.push({"field":"status", "value":"APPROVE"});
+    fields.push({"field":"priority", "value":8});
+  }
+
 
   this.findTasks = function(memo) {
     console.log('findTasks called with arg ' + memo);
     if(memo == undefined) {
       return [];
     }
-    return _.filter(sampleItems, function(theObj) { return theObj.memo == memo; });
+    return _.map(_.filter(sampleItems, function(theObj) { return theObj.memo == memo; }),
+                function(theObj) {
+                  var item = {};
+                  item.workItemNo = theObj.workItemNo;
+                  item.fields = [];
+                  item.fields.push(makeMemoField(theObj.memo));
+                  addMoreFakeFields(item.fields);
+                  return item;
+                }
+              );
+
   }
 };

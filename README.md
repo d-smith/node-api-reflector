@@ -161,3 +161,57 @@ response shows the updated preferencesL
     Content-Type: application/json; charset=utf-8
 
     {"allItems":false,"highPriority":true,"mediumPriority":true,"lowPriority":false,"workAccess":false}
+
+
+## Find Items
+
+The reflector provides some search functionality, based on looking for memo matches
+and ignoring all other criteria.
+
+For example, this request:
+
+    curl --include \
+     --header "Xtrac-Tenant: Acme" \
+     --header "Xtrac-Device-Id: C59FAAE0-11CE-450A-844A-A5C498DC8A39" \
+     --header "Xtrac-Request-Id: B9A1E888-EAC9-4538-A2C2-CBB00C56B930" \
+     --header "Authorization: Bearer 192379878734274873847" \
+     --header "Xtrac-Client-Id: xtrac-mobile-app" \
+     --header "Content-Type: application/json" \
+    "http://localhost:8666/v1/xtrac/tasks?returnFields=queue,memo,status,qctd,priority\
+    &filterCriteria=field:priority+comparator:greaterThan+value:7+dataType:Integer\
+    &filterCriteria=field:qctd+comparator:between+value:2014-07-18T17:00:00.000Z+value:2014-07-25T17:00:00.000+dataType:Date\
+    &filterCriteria=field:Memo+comparator:equal+value:'Ready%20for%20approval'+dataType:Character\
+    &sortFields=priority:dsc,qctd:dsc&startRow=1&maxRows=100"
+
+Returns:
+
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 733
+Date: Thu, 21 Aug 2014 20:23:36 GMT
+Connection: keep-alive
+
+    [{"workItemNo":"W000001-08AUG14","fields":[
+      {"field":"Memo","value":"Ready for approval"},
+      {"field":"queue","value":"HIREQ"},
+      {"field":"QCTD","value":"2014-07-23T10:05:34.010Z"},
+      {"field":"status","value":"APPROVE"},
+      {"field":"priority","value":8}]},
+    {"workItemNo":"W000002-08AUG14","fields":[
+      {"field":"Memo","value":"Ready for approval"},
+      {"field":"queue","value":"HIREQ"},
+      {"field":"QCTD","value":"2014-07-23T10:05:34.010Z"},
+      {"field":"status","value":"APPROVE"},
+      {"field":"priority","value":8}]},
+    {"workItemNo":"W000010-08AUG14","fields":[
+      {"field":"Memo","value":"Ready for approval"},
+      {"field":"queue","value":"HIREQ"},
+      {"field":"QCTD","value":"2014-07-23T10:05:34.010Z"},
+      {"field":"status","value":"APPROVE"},
+      {"field":"priority","value":8}]
+    }]
+
+Values that can be matched are 'Ready for approval', 'Not ready for approval',
+'Ready for approval I guess', 'Ready for approval now', 'Could you approve this already',
+'Ready for rejection', 'Reject-a-mundo', and 'Approve?'.

@@ -28,22 +28,40 @@ module.exports = new function() {
     fields.push({"field":"priority", "value":8});
   }
 
+  var mapToReturnItem = function(theObj) {
+      var item = {};
+      item.workItemNo = theObj.workItemNo;
+      item.fields = [];
+      item.fields.push(makeMemoField(theObj.memo));
+      addMoreFakeFields(item.fields);
+      return item;
+  };
+
+  this.findItem = function(workItemNo) {
+    console.log('retrieving item ' + workItemNo);
+    var item = _.filter(sampleItems, function(theObj) {
+      return theObj.workItemNo == workItemNo;
+    });
+
+    if(item.length == 0) {
+      return null;
+    } else {
+      return mapToReturnItem(item[0]);
+    }
+  }
+
 
   this.findTasks = function(memo) {
     console.log('findTasks called with arg ' + memo);
     if(memo == undefined) {
       return [];
     }
-    return _.map(_.filter(sampleItems, function(theObj) { return theObj.memo == memo; }),
-                function(theObj) {
-                  var item = {};
-                  item.workItemNo = theObj.workItemNo;
-                  item.fields = [];
-                  item.fields.push(makeMemoField(theObj.memo));
-                  addMoreFakeFields(item.fields);
-                  return item;
-                }
-              );
+    return _.map(
+      _.filter(sampleItems, function(theObj) {
+        return theObj.memo == memo;
+      }),
+      mapToReturnItem
+    );
 
   }
 };

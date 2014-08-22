@@ -23,4 +23,5 @@ module.exports = function(app, services) {
   app.post('/v1/xtrac/notifications', serviceNotificationSettingsHandler.storeNotificationSettings);
   app.put('/v1/xtrac/notifications', serviceNotificationSettingsHandler.updateNotificationSettings);
   app.get('/v1/xtrac/tasks', serviceSearchHandler.findTasks);
+  app.get('/v1/xtrac/tasks/:workItemNo', serviceSearchHandler.findItem);
 }

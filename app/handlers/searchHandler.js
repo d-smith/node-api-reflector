@@ -54,6 +54,17 @@ module.exports = function(searchSvc) {
       console.log("findTasks called with query " + request.query);
       var memoSerchVal = memoParser(request.query.filterCriteria);
       response.send(searchSvc.findTasks(memoSerchVal));
+    },
+    findItem: function(request, response) {
+      console.log('findItem called');
+      var workItemNo = request.param("workItemNo");
+      var workItem = searchSvc.findItem(workItemNo);
+      if(workItem == null) {
+        response.status(404);
+        response.send({error: 'item not found'});
+      } else {
+        response.send(workItem);
+      }
     }
   };
 }

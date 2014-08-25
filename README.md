@@ -22,6 +22,36 @@ There are some unit tests in the tests folder - to run these install
 jasmine-node (`npm install jasmine-node -g`), the execute the tests via
 `jasmine-node tests`
 
+### Docker Installation
+
+To make a docker image with the reflector, node, etc. create a directory and
+clone this project into it.
+
+    mkdir nodejs
+    cd nodejs
+    git clone https://github.com/d-smith/node-api-reflector.git
+
+Create a docker file with the following contents:
+
+    FROM ubuntu:14.04
+    MAINTAINER Doug Smith "doug.smith.mail@gmail.com"
+    ENV http_proxy http://10.33.50.14:8000
+    ENV https_proxy http://10.33.50.14:8000
+    RUN apt-get -yqq update
+    RUN apt-get -yqq install nodejs npm
+    RUN ln -s /usr/bin/nodejs /usr/bin/node
+    ADD node-api-reflector /opt/nodeapp
+    WORKDIR /opt/nodeapp
+    RUN npm install
+    EXPOSE 8666
+    ENTRYPOINT ["nodejs", "server.js"]
+
+Then, build the image.
+
+    sudo docker build -t="a045103/node-api-reflector" .
+
+    
+
 ## Access Tokens
 
 [Access Tokens](http://docs.xtracmobileappapi.apiary.io/#accesstokens) can be

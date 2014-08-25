@@ -50,7 +50,7 @@ Then, build the image.
 
     sudo docker build -t="a045103/node-api-reflector" .
 
-    
+
 
 ## Access Tokens
 
@@ -245,3 +245,32 @@ Connection: keep-alive
 Values that can be matched are 'Ready for approval', 'Not ready for approval',
 'Ready for approval I guess', 'Ready for approval now', 'Could you approve this already',
 'Ready for rejection', 'Reject-a-mundo', and 'Approve?'.
+
+## Task Detail
+
+There are 10 tasks that can be retrieve via the tasks/{id} resource
+(W000001-08AUG14 to W000010-08AUG14), e.g.
+
+    curl --include \
+         --header "Xtrac-Tenant: Acme" \
+         --header "Xtrac-Device-Id: C59FAAE0-11CE-450A-844A-A5C498DC8A39" \
+         --header "Xtrac-Request-Id: B9A1E888-EAC9-4538-A2C2-CBB00C56B930" \
+         --header "Authorization: Bearer 192379878734274873847" \
+         --header "Xtrac-Client-Id: xtrac-mobile-app" \
+         --header "Content-Type: application/json" \
+     http://localhost:8666/v1/xtrac/tasks/W000005-08AUG14
+
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 247
+    Date: Mon, 25 Aug 2014 14:23:50 GMT
+    Connection: keep-alive
+
+    {"workItemNo":"W000005-08AUG14",
+    "fields":[{"field":"Memo","value":"Ready for approval now"},
+      {"field":"queue","value":"HIREQ"},
+      {"field":"QCTD","value":"2014-07-23T10:05:34.010Z"},
+      {"field":"status","value":"APPROVE"},
+      {"field":"priority","value":8}]}

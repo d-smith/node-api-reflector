@@ -8,4 +8,8 @@ module.exports = new function() {
   this.read = function(key) {
     return store[key];
   };
+
+  this.remove = function(key) {
+  	delete store[key];
+  }
 }

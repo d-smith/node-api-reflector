@@ -21,4 +21,11 @@ describe("A cache can store and retrieve values by key", function() {
     expect(cache.read("no such key")).toBe(undefined);
     done();
   });
+
+  it("allows values to be removed from the cache", function(done) {
+    expect(cache.read("key").baz).toBe("baz");
+    cache.remove("key");
+    expect(cache.read("key")).toBe(undefined);
+    done();
+  });
 });

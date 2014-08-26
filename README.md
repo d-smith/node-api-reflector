@@ -274,3 +274,25 @@ There are 10 tasks that can be retrieve via the tasks/{id} resource
       {"field":"QCTD","value":"2014-07-23T10:05:34.010Z"},
       {"field":"status","value":"APPROVE"},
       {"field":"priority","value":8}]}
+
+
+## Locking Items
+
+curl --include \
+     --request PUT \
+     --header "Xtrac-Tenant: Acme" \
+     --header "Xtrac-Device-Id: C59FAAE0-11CE-450A-844A-A5C498DC8A39" \
+     --header "Xtrac-Request-Id: B9A1E888-EAC9-4538-A2C2-CBB00C56B930" \
+     --header "Authorization: Bearer 192379878734274873847" \
+     --header "Xtrac-Client-Id: xtrac-mobile-app" \
+ http://localhost:8666/v1/xtrac/tasks/W000010-08AUG14/lock
+
+
+ curl --include \
+     --request DELETE \
+     --header "Xtrac-Tenant: Acme" \
+     --header "Xtrac-Device-Id: C59FAAE0-11CE-450A-844A-A5C498DC8A39" \
+     --header "Xtrac-Request-Id: B9A1E888-EAC9-4538-A2C2-CBB00C56B930" \
+     --header "Authorization: Bearer 192379878734274873847" \
+     --header "Xtrac-Client-Id: xtrac-mobile-api" \
+ http://localhost:8666/v1/xtrac/tasks/W000010-08AUG14/lock

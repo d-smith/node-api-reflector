@@ -35,6 +35,18 @@
 				return true;
 			}
 		};
+
+		this.isLockedBy = function(token, workItemNo) {
+			var cachedItem = cache.read(workItemNo);
+			if(cachedItem == undefined || cachedItem != token) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+		
 	};
+
+
 
 })();

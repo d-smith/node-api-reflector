@@ -17,13 +17,13 @@ describe('A work item locker', function() {
 		expect(function() {
 			locking.lock('yyy', 'W000001-08AUG14');
 		}).toThrow(locking.otherUserHadLock);
-		
+
 		done();
 	});
 
 	it('throws an exception when locking an item that does not exist', function(done) {
 		expect(function() {
-			locking.lock('xxx', 'W000001-08AUG08');	
+			locking.lock('xxx', 'W000001-08AUG08');
 		}).toThrow(locking.noSuchItem);
 
 		done();
@@ -44,6 +44,16 @@ describe('A work item locker', function() {
 	it('unlocks a locked item', function(done){
 		expect(locking.unlock('xxx', 'W000001-08AUG14')).toBe(true);
 		expect(locking.lock('aaa', 'W000001-08AUG14')).toBe(true);
+		locking.unlock('aaa', 'W000001-08AUG14')
 		done();
 	});
+
+	it('returns true when asked by the lock owner if it has the lock, false otherwise', function(done) {
+		expect(locking.lock('aaa', 'W000001-08AUG14')).toBe(true);
+		expect(locking.isLockedBy('aaa', 'W000001-08AUG14')).toBe(true);
+		expect(locking.isLockedBy('bbb', 'W000001-08AUG14')).toBe(false);
+		expect(locking.isLockedBy('bbb', 'W110001-08AUG13')).toBe(false);
+		done();
+	});
+
 });

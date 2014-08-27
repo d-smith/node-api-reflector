@@ -46,11 +46,15 @@ Create a docker file with the following contents:
     EXPOSE 8666
     ENTRYPOINT ["nodejs", "server.js"]
 
-Then, build the image.
+Then, build the image. If you are using a vagrant guest OS when working with
+docker then you would start the guest os, vagrant ssh to it, change into the
+synced folder containing the files you created and staged above, then run:
 
-    sudo docker build -t="a045103/node-api-reflector" .
+    sudo docker build -t="node-api-reflector" .
 
+Then, start a container with the image:
 
+    sudo docker run -d -p 8666:8666 --name my-reflector node-api-reflector
 
 ## Access Tokens
 
@@ -396,5 +400,3 @@ Examples:
     Connection: keep-alive
 
     {"error":"Requested document for the given work item not found"}
-
-    

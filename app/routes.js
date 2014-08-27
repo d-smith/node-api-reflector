@@ -3,6 +3,7 @@ var notificationSettingsHandler = require('./handlers/notificationSettingsHandle
 var searchHandler = require('./handlers/searchHandler');
 var lockHandler = require('./handlers/lockHandler');
 var updateHandler = require('./handlers/updateHandler');
+var documentHandler = require('./handlers/documentHandler');
 
 
 module.exports = function(app, services) {
@@ -39,4 +40,5 @@ module.exports = function(app, services) {
   app.put('/v1/xtrac/tasks/:workItemNo/lock', serviceLockHandler.lock);
   app.delete('/v1/xtrac/tasks/:workItemNo/lock', serviceLockHandler.unlock);
   app.put('/v1/xtrac/tasks/:workItemNo', serviceUpdateHandler.update);
+  app.get('/v1/xtrac/tasks/:id/documents/:docid', documentHandler.getDocument);
 }

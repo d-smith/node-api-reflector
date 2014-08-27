@@ -312,3 +312,89 @@ There are 10 tasks that can be retrieve via the tasks/{id} resource
         "note":"Looks good"
     }' \
          http://localhost:8666/v1/xtrac/tasks/W000010-08AUG14
+
+
+## Retrieve Documents
+
+Currently, there are two document IDs that will work with any work item id.
+A document id of 1 will return a PDF document, and a document id of 2
+will return a text document. Any other document id will return a 404 not found
+response with an API error body.
+
+Examples:
+
+    curl --include \
+         --header "Xtrac-Tenant: Acme" \
+         --header "Xtrac-Device-Id: C59FAAE0-11CE-450A-844A-A5C498DC8A39" \
+         --header "Xtrac-Request-Id: B9A1E888-EAC9-4538-A2C2-CBB00C56B930" \
+         --header "Authorization: Bearer 192379878734274873847" \
+         --header "Xtrac-Client-Id: xtrac-mobile-app" \
+     http://localhost:8666/v1/xtrac/tasks/W123456-01JAN01/documents/2
+
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Content-Type: application/octet-stream
+    Content-Length: 2588
+    Date: Wed, 27 Aug 2014 22:26:09 GMT
+    Connection: keep-alive
+
+    Hipster Ipsum | Artisanal filler text for your site or project.
+
+    Fap mixtape meh, fashion axe freegan shabby chic 3 wolf moon Tonx gastropub
+    leggings art party. Tofu tousled flannel, single-origin coffee polaroid cornhole
+    trust fund Bushwick authentic pug narwhal Wes Anderson kogi quinoa typewriter.
+    Bespoke kitsch artisan irony Portland Banksy put a bird on it Carles Pitchfork,
+    organic before they sold out. Leggings ennui fap chambray, butcher
+    cray vinyl cornhole you probably haven't heard of them messenger bag next
+    level distillery food truck bicycle rights. Quinoa put a bird on it hella
+    tofu bespoke cornhole wolf. Pinterest ethnic organic, gluten-free chillwave
+    flannel photo booth Thundercats fashion axe. Tote bag meggings 8-bit organic,
+    post-ironic Blue Bottle street art craft beer sartorial.
+
+    Next level photo booth Portland, Echo Park normcore artisan bespoke 8-bit
+    leggings Marfa. Sartorial Bushwick aesthetic pickled tote bag. Cardigan gentrify
+    Pinterest photo booth lo-fi Bushwick polaroid, keffiyeh wayfarers narwhal.
+    VHS 3 wolf moon chillwave cliche fixie lo-fi Etsy, Cosby sweater Williamsburg
+    meh bicycle rights street art. Occupy readymade asymmetrical, Tonx locavore
+    Tumblr ennui McSweeney's. Vinyl quinoa blog gluten-free, keffiyeh YOLO occupy
+    tote bag mumblecore PBR. Keytar chillwave tousled, crucifix try-hard
+    seitan post- ironic tote bag trust fund chia lo-fi Austin dreamcatcher ugh
+    disrupt.
+
+    Squid American Apparel bitters YOLO. Gastropub aesthetic small batch keffiyeh
+    Tumblr, Williamsburg church-key mixtape Wes Anderson American Apparel ennui
+    locavore post-ironic. Plaid 3 wolf moon brunch meh iPhone Pinterest cornhole
+    roof party, sustainable photo booth messenger bag. Ugh bespoke Vice retro
+    meggings. Art party banh mi photo booth, Williamsburg quinoa plaid vinyl
+    selfies Etsy. Intelligentsia Portland Godard readymade. Etsy Tonx synth
+    skateboard sartorial trust fund disrupt small batch, Marfa seitan McSweeney's.
+
+    Keytar gentrify slow-carb trust fund four loko Cosby sweater put a bird on it
+    wayfarers bicycle rights church-key banh mi Pitchfork. +1 mustache semiotics
+    meggings Tumblr, deep v ugh small batch Etsy. Sartorial Williamsburg cardigan,
+    plaid Vice artisan gastropub Etsy aesthetic. Umami Intelligentsia butcher Banksy
+    hoodie. Farm-to-table plaid Brooklyn next level, hashtag kitsch you probably
+    haven't heard of them Truffaut master cleanse. Before they sold out forage
+    Blue Bottle, Vice fingerstache quinoa swag art party Tonx 90's. Sartorial Carles
+    keffiyeh, put a bird on it quinoa raw denim Pitchfork Tonx Austin keytar
+    letterpress.
+
+    curl --include \
+         --header "Xtrac-Tenant: Acme" \
+         --header "Xtrac-Device-Id: C59FAAE0-11CE-450A-844A-A5C498DC8A39" \
+         --header "Xtrac-Request-Id: B9A1E888-EAC9-4538-A2C2-CBB00C56B930" \
+         --header "Authorization: Bearer 192379878734274873847" \
+         --header "Xtrac-Client-Id: xtrac-mobile-app" \
+     http://localhost:8666/v1/xtrac/tasks/W123456-01JAN01/documents/3
+
+    HTTP/1.1 404 Not Found
+    X-Powered-By: Express
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 64
+    Date: Wed, 27 Aug 2014 22:26:56 GMT
+    Connection: keep-alive
+
+    {"error":"Requested document for the given work item not found"}
+
+    

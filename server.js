@@ -9,6 +9,7 @@ services["accessTokenService"] = require('./app/services/accessToken');
 services["cacheSvc"] = require('./app/services/cache');
 services["searchSvc"] = require('./app/services/search');
 services["lockSvc"] = require('./app/services/locking.js');
+services["updateSvc"] = require('./app/services/update.js');
 
 //load routes
 require('./app/routes')(app,services);

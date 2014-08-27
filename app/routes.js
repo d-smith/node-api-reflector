@@ -2,6 +2,7 @@ var accessTokenHandlers = require('./handlers/accessTokenHandlers');
 var notificationSettingsHandler = require('./handlers/notificationSettingsHandler');
 var searchHandler = require('./handlers/searchHandler');
 var lockHandler = require('./handlers/lockHandler');
+var updateHandler = require('./handlers/updateHandler');
 
 
 module.exports = function(app, services) {
@@ -22,6 +23,10 @@ module.exports = function(app, services) {
     services["lockSvc"]
   );
 
+  var serviceUpdateHandler = updateHandler(
+    services["updateSvc"]
+  );
+
 
 
 
@@ -33,4 +38,5 @@ module.exports = function(app, services) {
   app.get('/v1/xtrac/tasks/:workItemNo', serviceSearchHandler.findItem);
   app.put('/v1/xtrac/tasks/:workItemNo/lock', serviceLockHandler.lock);
   app.delete('/v1/xtrac/tasks/:workItemNo/lock', serviceLockHandler.unlock);
+  app.put('/v1/xtrac/tasks/:workItemNo', serviceUpdateHandler.update);
 }

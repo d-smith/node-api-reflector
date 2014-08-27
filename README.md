@@ -301,7 +301,11 @@ There are 10 tasks that can be retrieve via the tasks/{id} resource
          --header "Xtrac-Client-Id: xtrac-mobile-api" \
      http://localhost:8666/v1/xtrac/tasks/W000010-08AUG14/lock
 
- ## Approve/Reject An Item
+## Approve/Reject An Item
+
+A very simple simulation of approve/reject is in place. In a nutshell you need
+to lock once of the available items as described above, then submit an
+approve/reject PUT that includes the action and note attributes in the body.
 
      curl --include \
          --request PUT \

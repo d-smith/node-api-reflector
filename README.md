@@ -8,13 +8,18 @@ the call variations are descibed in this documentation.
 
 ## Installation
 
-This reflector requires node.js and npm. To run the reflector, first install the
+This reflector requires [node.js](http://nodejs.org/) and [npm](https://www.npmjs.org/). To run the reflector, first install the
 dependencies via
 
         npm install
 
 This is executed in the base directory of the reflector code. You may need to
-configure npm proxy settings if behind an HTTP proxy.
+configure npm proxy settings if behind an HTTP proxy. Use the npm config command
+prior to `npm install` if you 
+need to configure proxy settings:
+
+        npm config set proxy http://<proxy host>:<proxy port>
+        npm config set https-proxy http://<proxy host>:<proxy port> 
 
 Once the dependencies are installed, run the server via `node server.js`
 
@@ -22,7 +27,7 @@ There are some unit tests in the tests folder - to run these install
 jasmine-node (`npm install jasmine-node -g`), the execute the tests via
 `jasmine-node tests`
 
-### Docker Installation
+### Docker Image
 
 To make a docker image with the reflector, node, etc. create a directory and
 clone this project into it.

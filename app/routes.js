@@ -4,6 +4,7 @@ var searchHandler = require('./handlers/searchHandler');
 var lockHandler = require('./handlers/lockHandler');
 var updateHandler = require('./handlers/updateHandler');
 var documentHandler = require('./handlers/documentHandler');
+var rootHandler = require('./handlers/rootHandler');
 
 
 module.exports = function(app, services) {
@@ -28,9 +29,11 @@ module.exports = function(app, services) {
     services["updateSvc"]
   );
 
+  var root = rootHandler();
 
 
 
+  app.get('/', root.rootPage);
   app.post('/v1/xtrac/oauth2/token', serviceAccessTokenHandlers.createAccessToken);
   app.post('/v1/xtrac/oauth2/revoke', serviceAccessTokenHandlers.revokeAccessToken);
   app.post('/v1/xtrac/notifications', serviceNotificationSettingsHandler.storeNotificationSettings);

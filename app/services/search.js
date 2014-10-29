@@ -31,6 +31,7 @@
     var mapToReturnItem = function(theObj) {
         var item = {};
         item.workItemNo = theObj.workItemNo;
+        item.workAccess = theObj.workAccess;
         item.fields = [];
         item.fields.push(makeMemoField(theObj.memo));
         addMoreFakeFields(item.fields);
@@ -53,13 +54,21 @@
     };
 
 
-    this.findTasks = function(memo) {
-      console.log('findTasks called with arg ' + memo);
+    this.findTasks = function(memo, workAccess) {
+      console.log('findTasks called with args ' + memo + ' and ' + workAccess);
+      var access;
+      if(workAccess === 'work') {
+        access = 'work';
+      } else {
+        access = 'view';
+      }
+
       if(memo == undefined) {
         return [];
       }
       return _.map(
         _.filter(sampleItems, function(theObj) {
+          theObj.workAccess = access;
           return theObj.memo == memo;
         }),
         mapToReturnItem

@@ -19,7 +19,6 @@ var gobbleRemainingValueTokens = function(startingVal, tokens, startWith) {
   var value = startingVal;
   for(var idx = startWith; idx < tokens.length; idx++) {
     var token = tokens[idx];
-    console.log('process ' + tokens[idx]);
     value += " ";
     value += tokens[idx];
     if(token.endsWith("'")) {
@@ -30,12 +29,12 @@ var gobbleRemainingValueTokens = function(startingVal, tokens, startWith) {
   return value;
 }
 
-var memoParser = function(filterCriteria) {
+var parseOutField = function(filterCriteria, targetField) {
   for(idx in filterCriteria) {
     var criteria = filterCriteria[idx];
     var tokens = criteria.split(" ");
     var fieldName = (tokens[0].split(":"))[1];
-    if(fieldName == "Memo") {
+    if(fieldName == targetField) {
       var value = (tokens[2].split(":"))[1];
       if(value.startsWith("'")) {
         value = gobbleRemainingValueTokens(value, tokens, 3);
@@ -45,18 +44,33 @@ var memoParser = function(filterCriteria) {
   }
 
   return null;
+};
+
+
+var memoParser = function(filterCriteria) {
+  return parseOutField(filterCriteria, "Memo");
 }
+
+var workAccessParser = function(filterCriteria) {
+    return parseOutField(filterCriteria, "Memo");
+};
+
 
 
 module.exports = function(searchSvc) {
   return {
     findTasks: function(request, response) {
       console.log("findTasks called with query " + request.query);
-      var memoSerchVal = memoParser(request.query.filterCriteria);
-      response.send(searchSvc.findTasks(memoSerchVal));
+      var filterCriteria = request.query.filterCriteria;
+      var memoSearchVal = memoParser(filterCriteria);
+      var workAccess = request.query.workAccess;
+      if(typeof workAccess === 'undefined') {
+        workAccess = "all";
+      }
+
+      response.send(searchSvc.findTasks(memoSearchVal, workAccess));
     },
     findItem: function(request, response) {
-      console.log('findItem called');
       var workItemNo = request.param("workItemNo");
       var workItem = searchSvc.findItem(workItemNo);
       if(workItem == null) {

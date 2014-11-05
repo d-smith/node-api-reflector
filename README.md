@@ -87,7 +87,7 @@ Example - Valid Input
      --header "Xtrac-Previous-Access-Token: 19384972348734" \
      --header "Content-Type: application/x-www-form-urlencoded" \
      --data-binary 'grant_type=password&client_id=foobar&client_secret=buylowsellhigh&username=joeuser&password=changeme&tenant_id=acme' \
-     http://vc2cmmkb026372:9002/v1/xtrac/oauth2/token
+     http://vc2cmmkb026372:9002/xtrac-api/v1/oauth2/token
 
 This will return something like:
 
@@ -111,7 +111,7 @@ Example - Invalid User Name
      --header "Xtrac-Previous-Access-Token: 19384972348734" \
      --header "Content-Type: application/x-www-form-urlencoded" \
      --data-binary 'grant_type=password&client_id=foobar&client_secret=buylowsellhigh&username=notauser&password=changeme&tenant_id=acme' \
-     http://vc2cmmkb026372:9002/v1/xtrac/oauth2/token
+     http://vc2cmmkb026372:9002/xtrac-api/v1/oauth2/token
 
 Will return this:
 
@@ -149,7 +149,7 @@ Example - initial POST:
         "deviceToken":"29z6j5c4df46f809505189c4c83fjcgf7f6257e98542d2jt3395kj73",
         "deviceType":"iOS"
     }' \
-         http://vc2cmmkb026372:9002/v1/xtrac/notifications
+         http://vc2cmmkb026372:9002/xtrac-api/v1/notifications
 
 Produces:
 
@@ -185,7 +185,7 @@ After submitting an update:
           "workAccess":false
       }
       }    ' \
-       http://vc2cmmkb026372:9002/v1/xtrac/notifications
+       http://vc2cmmkb026372:9002/xtrac-api/v1/notifications
 
 The next post will then reflect back the updated preferences, e.g. if the POST
 above is resubmitted (with a unique request id) then the following
@@ -216,7 +216,7 @@ For example, this request:
      --header "Authorization: Bearer 192379878734274873847" \
      --header "Xtrac-Client-Id: xtrac-mobile-app" \
      --header "Content-Type: application/json" \
-    "http://localhost:8666/v1/xtrac/tasks?returnFields=queue,memo,status,qctd,priority\
+    "http://localhost:8666/xtrac-api/v1/tasks?returnFields=queue,memo,status,qctd,priority\
     &filterCriteria=field:priority+comparator:greaterThan+value:7\
     &filterCriteria=field:qctd+comparator:between+value:2014-07-18T17:00:00.000Z+value:2014-07-25T17:00:00.000\
     &filterCriteria=field:Memo+comparator:equal+value:'Ready%20for%20approval'\
@@ -330,7 +330,7 @@ There are 10 tasks that can be retrieve via the tasks/{id} resource
          --header "Authorization: Bearer 192379878734274873847" \
          --header "Xtrac-Client-Id: xtrac-mobile-app" \
          --header "Content-Type: application/json" \
-     http://localhost:8666/v1/xtrac/tasks/W000005-08AUG14
+     http://localhost:8666/xtrac-api/v1/tasks/W000005-08AUG14
 
 
     HTTP/1.1 200 OK
@@ -357,7 +357,7 @@ There are 10 tasks that can be retrieve via the tasks/{id} resource
        --header "Xtrac-Request-Id: B9A1E888-EAC9-4538-A2C2-CBB00C56B930" \
        --header "Authorization: Bearer 192379878734274873847" \
        --header "Xtrac-Client-Id: xtrac-mobile-app" \
-    http://localhost:8666/v1/xtrac/tasks/W000010-08AUG14/lock
+    http://localhost:8666/xtrac-api/v1/tasks/W000010-08AUG14/lock
 
 
      curl --include \
@@ -367,7 +367,7 @@ There are 10 tasks that can be retrieve via the tasks/{id} resource
          --header "Xtrac-Request-Id: B9A1E888-EAC9-4538-A2C2-CBB00C56B930" \
          --header "Authorization: Bearer 192379878734274873847" \
          --header "Xtrac-Client-Id: xtrac-mobile-api" \
-     http://localhost:8666/v1/xtrac/tasks/W000010-08AUG14/lock
+     http://localhost:8666/xtrac-api/v1/tasks/W000010-08AUG14/lock
 
 ## Approve/Reject An Item
 
@@ -387,7 +387,7 @@ approve/reject PUT that includes the action and note attributes in the body.
         "action":"approved",
         "note":"Looks good"
     }' \
-         http://localhost:8666/v1/xtrac/tasks/W000010-08AUG14
+         http://localhost:8666/xtrac-api/v1/tasks/W000010-08AUG14
 
 
 ## Retrieve Documents
@@ -405,7 +405,7 @@ Examples:
          --header "Xtrac-Request-Id: B9A1E888-EAC9-4538-A2C2-CBB00C56B930" \
          --header "Authorization: Bearer 192379878734274873847" \
          --header "Xtrac-Client-Id: xtrac-mobile-app" \
-     http://localhost:8666/v1/xtrac/tasks/W123456-01JAN01/documents/2
+     http://localhost:8666/xtrac-api/v1/tasks/W123456-01JAN01/documents/2
 
 
     HTTP/1.1 200 OK
@@ -462,7 +462,7 @@ Examples:
          --header "Xtrac-Request-Id: B9A1E888-EAC9-4538-A2C2-CBB00C56B930" \
          --header "Authorization: Bearer 192379878734274873847" \
          --header "Xtrac-Client-Id: xtrac-mobile-app" \
-     http://localhost:8666/v1/xtrac/tasks/W123456-01JAN01/documents/3
+     http://localhost:8666/xtrac-api/v1/tasks/W123456-01JAN01/documents/3
 
     HTTP/1.1 404 Not Found
     X-Powered-By: Express

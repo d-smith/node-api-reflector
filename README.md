@@ -66,7 +66,8 @@ Then, start a container with the image:
 [Access Tokens](http://docs.xtracmobileappapi.apiary.io/#accesstokens) can be
 created or revoked.
 
-Creating an access token requires a valid username and password. If the reflector
+Creating an access token via the password grant_type
+requires a valid username and password. If the reflector
 receives a request with a usename of `notauser`, the error for invalid user name
 or password is returned.
 
@@ -94,11 +95,11 @@ This will return something like:
     HTTP/1.1 200 OK
     X-Powered-By: Express
     Content-Type: application/json; charset=utf-8
-    Content-Length: 55
-    Date: Thu, 14 Aug 2014 13:56:53 GMT
+    Content-Length: 150
+    Date: Wed, 26 Nov 2014 18:59:35 GMT
     Connection: keep-alive
 
-    {"access_token":"d88ce8c0-23ba-11e4-b81c-d143e3344f75"}
+    {"access_token":"5d4d3120-759e-11e4-bd97-81fd4608eff9","token_type":"Bearer","refresh_token":"5d4d3121-759e-11e4-bd97-81fd4608eff9","expires_in":3600}
 
 
 Example - Invalid User Name
@@ -123,6 +124,52 @@ Will return this:
     Connection: keep-alive
 
     {"error":"Invalid username or password"}
+
+For obtaining an access token using a refresh token, the refresh_token grant_type
+is used. If the refresh token is not the literal `expired` a new AT and RT is
+returned, otherwise an error is produced.
+
+For example, a valid call looks like:
+
+    curl --include\
+      --request POST\
+      --header "Xtrac-Tenant: Acme"\
+      --header "Xtrac-Device-Id: C59FAAE0-11CE-450A-844A-A5C498DC8A39"\
+      --header "Xtrac-Request-Id: B9A1E888-EAC9-4538-A2C2-CBB00C56B930"\
+      --header "Xtrac-Previous-Access-Token: 19384972348734"\
+      --header "Content-Type: application/x-www-form-urlencoded"\
+      --data-binary 'grant_type=refresh_token&client_id=xtracmobile1&username=joeuser&refresh_token=xxx&tenant_id=acme'\
+      http://localhost:8666/xtrac-api/v1/oauth2/token
+
+      HTTP/1.1 200 OK
+      X-Powered-By: Express
+      Content-Type: application/json; charset=utf-8
+      Content-Length: 150
+      Date: Wed, 26 Nov 2014 18:57:53 GMT
+      Connection: keep-alive
+
+      {"access_token":"20431fb0-759e-11e4-bd97-81fd4608eff9","token_type":"Bearer","refresh_token":"20431fb1-759e-11e4-bd97-81fd4608eff9","expires_in":3600}
+
+  Whereas this call will produce an error:
+
+    curl --include\
+      --request POST\
+      --header "Xtrac-Tenant: Acme"\
+      --header "Xtrac-Device-Id: C59FAAE0-11CE-450A-844A-A5C498DC8A39"\
+      --header "Xtrac-Request-Id: B9A1E888-EAC9-4538-A2C2-CBB00C56B930"\
+      --header "Xtrac-Previous-Access-Token: 19384972348734"\
+      --header "Content-Type: application/x-www-form-urlencoded"\
+      --data-binary 'grant_type=refresh_token&client_id=xtracmobile1&username=joeuser&refresh_token=expired&tenant_id=acme'\
+      http://localhost:8666/xtrac-api/v1/oauth2/token
+
+      HTTP/1.1 401 Unauthorized
+      X-Powered-By: Express
+      Content-Type: application/json; charset=utf-8
+      Content-Length: 38
+      Date: Wed, 26 Nov 2014 18:56:52 GMT
+      Connection: keep-alive
+
+      {"error":"Session expired or invalid"}
 
 ## Notification Settings
 

@@ -36,4 +36,12 @@ module.exports = new function() {
       return undefined;
     }
   };
+
+  this.processRefreshToken = function(rt) {
+    if(rt === 'expired') {
+      return { error : 'Session expired or invalid'}
+    } else {
+      return this.getAccessToken('foo','bar');
+    }
+  }
 }

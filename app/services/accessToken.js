@@ -15,7 +15,7 @@ module.exports = new function() {
 
       return {
         "access_token" : at,
-        "token_type" : "xtrac",
+        "token_type" : "Bearer",
         "refresh_token" : rt,
         "expires_in" : 3600
       };

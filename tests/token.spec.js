@@ -13,6 +13,8 @@ describe("The access token service can handle valid and invalid users", function
     var accessResponse = accessTokenSvc.getAccessToken("joeuser", "");
     expect(_.has(accessResponse, "error")).toBe(false);
     expect(_.has(accessResponse, "access_token")).toBe(true);
+    expect(_.has(accessResponse, "refresh_token")).toBe(true);
+    expect(_.has(accessResponse, "expires_in")).toBe(true);
     done();
   });
 });

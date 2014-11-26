@@ -4,9 +4,21 @@ module.exports = new function() {
   this.getAccessToken = function(username, password) {
     console.log("getAccessToken called for " + username);
     if(username === "notauser") {
-      return {"error":"Invalid username or password"}
+      return {"error":"Invalid username or password"};
     } else {
-      return { "access_token" : uuid.v1() }
+
+      var at = uuid.v1();
+      var rt = uuid.v1();
+      while(at === rt) {
+        rt = uuid.v1();
+      }
+
+      return {
+        "access_token" : at,
+        "token_type" : "xtrac",
+        "refresh_token" : rt,
+        "expires_in" : 3600
+      };
     }
   };
 

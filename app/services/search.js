@@ -30,7 +30,7 @@
     var mapToReturnItem = function(theObj) {
         var item = {};
         item.workItemNo = theObj.workItemNo;
-        item.accessType = theObj.accessType;
+        //item.accessType = theObj.accessType;
         item.jeopardy = [{"field":"QCTD", "value":"2014-07-23T10:05:34.010Z", "status":"RED"}];
         item.fields = [];
         item.fields.push(makeMemoField(theObj.memo));

@@ -30,7 +30,7 @@
     var mapToReturnItem = function(theObj) {
         var item = {};
         item.workItemNo = theObj.workItemNo;
-        item.workAccess = theObj.workAccess;
+        item.accessType = theObj.accessType;
         item.jeopardy = [{"field":"QCTD", "value":"2014-07-23T10:05:34.010Z", "status":"RED"}];
         item.fields = [];
         item.fields.push(makeMemoField(theObj.memo));
@@ -54,10 +54,10 @@
     };
 
 
-    this.findTasks = function(memo, workAccess) {
-      console.log('findTasks called with args ' + memo + ' and ' + workAccess);
+    this.findTasks = function(memo, accessType) {
+      console.log('findTasks called with args ' + memo + ' and ' + accessType);
       var access;
-      if(workAccess === 'work') {
+      if(accessType === 'work') {
         access = 'work';
       } else {
         access = 'view';
@@ -68,7 +68,7 @@
       }
       return _.map(
         _.filter(sampleItems, function(theObj) {
-          theObj.workAccess = access;
+          theObj.accessType = access;
           return theObj.memo == memo;
         }),
         mapToReturnItem

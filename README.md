@@ -208,7 +208,7 @@ Produces:
     X-Powered-By: Express
     Content-Type: application/json; charset=utf-8
 
-    {"allItems":true,"highPriority":true,"mediumPriority":true,"lowPriority":true,"workAccess":false}
+    {"allItems":true,"highPriority":true,"mediumPriority":true,"lowPriority":true,"accessType":false}
 
 
 After submitting an update:
@@ -229,7 +229,7 @@ After submitting an update:
           "highPriority":true,
           "mediumPriority":true,
           "lowPriority":false,
-          "workAccess":false
+          "accessType":false
       }
       }    ' \
        http://vc2cmmkb026372:9002/xtrac-api/v1/notifications
@@ -246,7 +246,7 @@ response shows the updated preferencesL
     X-Powered-By: Express
     Content-Type: application/json; charset=utf-8
 
-    {"allItems":false,"highPriority":true,"mediumPriority":true,"lowPriority":false,"workAccess":false}
+    {"allItems":false,"highPriority":true,"mediumPriority":true,"lowPriority":false,"accessType":false}
 
 
 ## Find Items
@@ -279,21 +279,21 @@ Returns:
     Date: Sun, 30 Nov 2014 14:07:55 GMT
     Connection: keep-alive
 
-    [{"workItemNo":"W000001-08AUG14","workAccess":"view",
+    [{"workItemNo":"W000001-08AUG14","accessType":"view",
       "jeopardy":[{"field":"QCTD","value":"2014-07-23T10:05:34.010Z","status":"RED"}],
       "fields":[
         {"field":"Memo","value":"Ready for approval"},
         {"field":"queue","value":"HIREQ"},
         {"field":"status","value":"APPROVE"},
         {"field":"Priority","value":"high"}]},
-     {"workItemNo":"W000002-08AUG14","workAccess":"view",
+     {"workItemNo":"W000002-08AUG14","accessType":"view",
       "jeopardy":[{"field":"QCTD","value":"2014-07-23T10:05:34.010Z","status":"RED"}],
       "fields":[
         {"field":"Memo","value":"Ready for approval"},
         {"field":"queue","value":"HIREQ"},
         {"field":"status","value":"APPROVE"},
         {"field":"Priority","value":"high"}]},
-     {"workItemNo":"W000010-08AUG14","workAccess":"view",
+     {"workItemNo":"W000010-08AUG14","accessType":"view",
       "jeopardy":[{"field":"QCTD","value":"2014-07-23T10:05:34.010Z","status":"RED"}],
       "fields":[
         {"field":"Memo","value":"Ready for approval"},

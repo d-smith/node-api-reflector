@@ -263,103 +263,43 @@ For example, this request:
      --header "Authorization: Bearer 192379878734274873847" \
      --header "Xtrac-Client-Id: xtrac-mobile-app" \
      --header "Content-Type: application/json" \
-    "http://localhost:8666/xtrac-api/v1/tasks?returnFields=queue,memo,status,qctd,priority\
-    &filterCriteria=field:priority+comparator:greaterThan+value:7\
+    "http://localhost:8666/xtrac-api/v1/tasks?returnFields=queue,memo,status,qctd,Priority\
+    &filterCriteria=field:Priority+comparator:equal+value:high\
     &filterCriteria=field:qctd+comparator:between+value:2014-07-18T17:00:00.000Z+value:2014-07-25T17:00:00.000\
+    &filterCriteria=field:status+comparator:equal+value:APPROVE\
     &filterCriteria=field:Memo+comparator:equal+value:'Ready%20for%20approval'\
-    &sortFields=priority:dsc,qctd:dsc&startRow=1&maxRows=100&workAccess=work"
+    &sortFields=Priority+sort:desc,qctd+sort:desc&startRow=1&maxRows=100"
 
 Returns:
 
-HTTP/1.1 200 OK
-X-Powered-By: Express
-Content-Type: application/json; charset=utf-8
-Content-Length: 733
-Date: Thu, 21 Aug 2014 20:23:36 GMT
-Connection: keep-alive
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 892
+    Date: Sun, 30 Nov 2014 14:07:55 GMT
+    Connection: keep-alive
 
-    [
-      {
-        "workItemNo":"W000001-08AUG14",
-        "workAccess":"work",
-        "fields":[
-          {
-            "field":"Memo",
-            "value":"Ready for approval"
-          },
-          {
-            "field":"queue",
-            "value":"HIREQ"
-          },
-          {
-            "field":"QCTD",
-            "value":"2014-07-23T10:05:34.010Z"
-          },
-          {
-            "field":"status",
-            "value":"APPROVE"
-          },
-          {
-            "field":"priority",
-            "value":8
-          }
-        ]
-      },
-      {
-        "workItemNo":"W000002-08AUG14",
-        "workAccess":"work",
-        "fields":[
-          {
-            "field":"Memo",
-            "value":"Ready for approval"
-          },
-          {
-            "field":"queue",
-            "value":"HIREQ"
-          },
-          {
-            "field":"QCTD",
-            "value":"2014-07-23T10:05:34.010Z"
-          },
-          {
-            "field":"status",
-            "value":"APPROVE"
-          },
-          {
-            "field":"priority",
-            "value":8
-          }
-        ]
-      },
-      {
-        "workItemNo":"W000010-08AUG14",
-        "workAccess":"work",
-        "fields":[
-          {
-            "field":"Memo",
-            "value":"Ready for approval"
-          },
-          {
-            "field":"queue",
-            "value":"HIREQ"
-          },
-          {
-            "field":"QCTD",
-            "value":"2014-07-23T10:05:34.010Z"
-          },
-          {
-            "field":"status",
-            "value":"APPROVE"
-          },
-          {
-            "field":"priority",
-            "value":8
-          }
-        ]
-      }
-    ]
-
-
+    [{"workItemNo":"W000001-08AUG14","workAccess":"view",
+      "jeopardy":[{"field":"QCTD","value":"2014-07-23T10:05:34.010Z","status":"RED"}],
+      "fields":[
+        {"field":"Memo","value":"Ready for approval"},
+        {"field":"queue","value":"HIREQ"},
+        {"field":"status","value":"APPROVE"},
+        {"field":"Priority","value":"high"}]},
+     {"workItemNo":"W000002-08AUG14","workAccess":"view",
+      "jeopardy":[{"field":"QCTD","value":"2014-07-23T10:05:34.010Z","status":"RED"}],
+      "fields":[
+        {"field":"Memo","value":"Ready for approval"},
+        {"field":"queue","value":"HIREQ"},
+        {"field":"status","value":"APPROVE"},
+        {"field":"Priority","value":"high"}]},
+     {"workItemNo":"W000010-08AUG14","workAccess":"view",
+      "jeopardy":[{"field":"QCTD","value":"2014-07-23T10:05:34.010Z","status":"RED"}],
+      "fields":[
+        {"field":"Memo","value":"Ready for approval"},
+        {"field":"queue","value":"HIREQ"},
+        {"field":"status","value":"APPROVE"},
+        {"field":"Priority","value":"high"}]}]
 
 Values that can be matched are 'Ready for approval', 'Not ready for approval',
 'Ready for approval I guess', 'Ready for approval now', 'Could you approve this already',

@@ -23,15 +23,15 @@
 
     var addMoreFakeFields = function(fields) {
       fields.push({"field":"queue", "value":"HIREQ"});
-      fields.push({"field":"QCTD","value":"2014-07-23T10:05:34.010Z"});
       fields.push({"field":"status", "value":"APPROVE"});
-      fields.push({"field":"priority", "value":8});
+      fields.push({"field":"Priority", "value":"high"});
     }
 
     var mapToReturnItem = function(theObj) {
         var item = {};
         item.workItemNo = theObj.workItemNo;
         item.workAccess = theObj.workAccess;
+        item.jeopardy = [{"field":"QCTD", "value":"2014-07-23T10:05:34.010Z", "status":"RED"}];
         item.fields = [];
         item.fields.push(makeMemoField(theObj.memo));
         addMoreFakeFields(item.fields);

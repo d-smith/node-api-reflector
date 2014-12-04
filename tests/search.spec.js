@@ -6,7 +6,6 @@ describe('A search finds items that match work items', function()  {
 	it('Matches items by memo', function(done) {
 		var items = search.findTasks('Ready for approval', 'all');
 		expect(items.length).toBe(3);
-		expect(items[0].workAccess).toBe('view');
 		expect(items[0].workItemNo).toBe('W000001-08AUG14');
 		done();
 	});
@@ -14,7 +13,6 @@ describe('A search finds items that match work items', function()  {
 	it('Returns workAccess as work when workAccess filter is work', function(done) {
 		var items = search.findTasks('Ready for approval', 'work');
 		expect(items.length).toBe(3);
-		expect(items[0].workAccess).toBe('work');
 		expect(items[0].workItemNo).toBe('W000001-08AUG14');
 		done();
 	});

@@ -53,6 +53,23 @@
       }
     };
 
+    this.findTasksViaPost = function(requestJSON) {
+      filterCriteria = requestJSON.filterCriteria;
+      memosc = _.filter(filterCriteria, function(theObj) {
+        return theObj.field == 'Memo';
+      });
+
+
+      var memo = '';
+      if(memosc.length > 0) {
+        //Chimplified assumptions: there is a single memo criterion with a
+        //single value.
+        memo = memosc[0].values[0];
+      }
+      console.log('memo is %s', memo);
+      return this.findTasks(memo, 'work');
+    };
+
 
     this.findTasks = function(memo, accessType) {
       console.log('findTasks called with args ' + memo + ' and ' + accessType);

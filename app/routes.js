@@ -41,6 +41,7 @@ module.exports = function(app, services) {
   app.get('/xtrac-api/v1/tasks', serviceSearchHandler.findTasks);
   app.get('/xtrac-api/v1/tasks/:workItemNo', serviceSearchHandler.findItem);
   app.put('/xtrac-api/v1/tasks/:workItemNo/lock', serviceLockHandler.lock);
+  app.post('/xtrac-api/v1/tasks/search', serviceSearchHandler.executeSearch);
   app.delete('/xtrac-api/v1/tasks/:workItemNo/lock', serviceLockHandler.unlock);
   app.put('/xtrac-api/v1/tasks/:workItemNo', serviceUpdateHandler.update);
   app.get('/xtrac-api/v1/tasks/:id/documents/:docid', documentHandler.getDocument);

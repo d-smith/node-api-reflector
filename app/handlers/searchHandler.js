@@ -59,6 +59,10 @@ var workAccessParser = function(filterCriteria) {
 
 module.exports = function(searchSvc) {
   return {
+    executeSearch: function(request, response) {
+      response.send(searchSvc.findTasksViaPost(request.body));
+    },
+
     findTasks: function(request, response) {
       console.log("findTasks called with query " + request.query);
       var filterCriteria = request.query.filterCriteria;

@@ -305,6 +305,210 @@ Values that can be matched are 'Ready for approval', 'Not ready for approval',
 'Ready for approval I guess', 'Ready for approval now', 'Could you approve this already',
 'Ready for rejection', 'Reject-a-mundo', and 'Approve?'.
 
+## Find Items - POST to Search resource
+
+    curl --include \
+         --request POST \
+         --header "Xtrac-Tenant: Acme" \
+         --header "Xtrac-Device-Id: C59FAAE0-11CE-450A-844A-A5C498DC8A39" \
+         --header "Xtrac-Request-Id: B9A1E888-EAC9-4538-A2C2-CBB00C56B930" \
+         --header "Authorization: Bearer 192379878734274873847" \
+         --header "Xtrac-Client-Id: xtrac-mobile-app" \
+         --header "Content-Type: application/json" \
+         --data-binary '{
+    "returnFields": [
+        "queue",
+        "memo",
+        "status",
+        "qctd",
+        "Priority"
+    ],
+    "filterCriteria": [
+        {
+            "field": "Memo",
+            "comparator": "equal",
+            "values": [
+                "Ready for approval"
+            ]
+        }
+    ],
+    "sortFields": [
+        {
+            "field": "Priority",
+            "order": "desc"
+        },
+        {
+            "field": "qctd",
+            "order": "desc"
+        }
+    ],
+    "startRow": 1,
+    "maxRows": 100
+    }' \
+         'http://localhost:8666/xtrac-api/v1/tasks/search'
+
+    [
+      {
+        "workItemNo":"W000001-08AUG14",
+        "jeopardy":[
+          {
+            "field":"QCTD",
+            "value":"2014-07-23T10:05:34.010Z",
+            "status":"RED"
+          }
+        ],
+        "fields":[
+          {
+            "field":"Memo",
+            "value":"Ready for approval"
+          },
+          {
+            "field":"queue",
+            "value":"HIREQ"
+          },
+          {
+            "field":"status",
+            "value":"APPROVE"
+          },
+          {
+            "field":"Priority",
+            "value":"high"
+          }
+        ]
+      },
+      {
+        "workItemNo":"W000002-08AUG14",
+        "jeopardy":[
+          {
+            "field":"QCTD",
+            "value":"2014-07-23T10:05:34.010Z",
+            "status":"RED"
+          }
+        ],
+        "fields":[
+          {
+            "field":"Memo",
+            "value":"Ready for approval"
+          },
+          {
+            "field":"queue",
+            "value":"HIREQ"
+          },
+          {
+            "field":"status",
+            "value":"APPROVE"
+          },
+          {
+            "field":"Priority",
+            "value":"high"
+          }
+        ]
+      },
+      {
+        "workItemNo":"W000010-08AUG14",
+        "jeopardy":[
+          {
+            "field":"QCTD",
+            "value":"2014-07-23T10:05:34.010Z",
+            "status":"RED"
+          }
+        ],
+        "fields":[
+          {
+            "field":"Memo",
+            "value":"Ready for approval"
+          },
+          {
+            "field":"queue",
+            "value":"HIREQ"
+          },
+          {
+            "field":"status",
+            "value":"APPROVE"
+          },
+          {
+            "field":"Priority",
+            "value":"high"
+          }
+        ]
+      }
+    ]
+
+
+Another example...
+
+    curl --include \
+         --request POST \
+         --header "Xtrac-Tenant: Acme" \
+         --header "Xtrac-Device-Id: C59FAAE0-11CE-450A-844A-A5C498DC8A39" \
+         --header "Xtrac-Request-Id: B9A1E888-EAC9-4538-A2C2-CBB00C56B930" \
+         --header "Authorization: Bearer 192379878734274873847" \
+         --header "Xtrac-Client-Id: xtrac-mobile-app" \
+         --header "Content-Type: application/json" \
+         --data-binary '{
+    "returnFields": [
+        "queue",
+        "memo",
+        "status",
+        "qctd",
+        "Priority"
+    ],
+    "filterCriteria": [
+        {
+            "field": "Memo",
+            "comparator": "equal",
+            "values": [
+                "Not ready for approval"
+            ]
+        }
+    ],
+    "sortFields": [
+        {
+            "field": "Priority",
+            "order": "desc"
+        },
+        {
+            "field": "qctd",
+            "order": "desc"
+        }
+    ],
+    "startRow": 1,
+    "maxRows": 100
+    }' \
+         'http://localhost:8666/xtrac-api/v1/tasks/search'
+
+    [
+      {
+        "workItemNo":"W000003-08AUG14",
+        "jeopardy":[
+          {
+            "field":"QCTD",
+            "value":"2014-07-23T10:05:34.010Z",
+            "status":"RED"
+          }
+        ],
+        "fields":[
+          {
+            "field":"Memo",
+            "value":"Not ready for approval"
+          },
+          {
+            "field":"queue",
+            "value":"HIREQ"
+          },
+          {
+            "field":"status",
+            "value":"APPROVE"
+          },
+          {
+            "field":"Priority",
+            "value":"high"
+          }
+        ]
+      }
+    ]
+
+
 ## Task Detail
 
 There are 10 tasks that can be retrieve via the tasks/{id} resource
